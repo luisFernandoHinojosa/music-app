@@ -3,7 +3,15 @@ import { AddIcon, MinusIcons, PlayIcon } from "../../icons/Svgs";
 import { useDispatch } from "react-redux";
 import { addTrack, removeTrack } from "../../store/slices/playlistCart.slice";
 
-export const TrackCard = ({ track, showPlayBtn, showAddBtn, imageSize = "base" ,minusBtn, deletebtn }) => {
+export const TrackCard = ({ 
+  track, 
+  showPlayBtn, 
+  showAddBtn, 
+  imageSize = "base" ,
+  minusBtn, 
+  deletebtn,
+  playTrack
+ }) => {
   const lastIndexArtist = track.artists.length - 1;
 
   const dispatch = useDispatch();
@@ -62,9 +70,18 @@ export const TrackCard = ({ track, showPlayBtn, showAddBtn, imageSize = "base" ,
         {minusBtn&&<button onClick={handleRemoveTrack}>
           <MinusIcons/>
         </button>}
-        {deletebtn&&<button onClick={()=>deletebtn(track.id)}>
+
+        {deletebtn && (
+        <button onClick={()=>deletebtn(track.id)}>
           <MinusIcons/>
-        </button>}
+        </button>
+        )}
+
+        {playTrack && (
+          <button onClick={() => playTrack(track.spotifyId)}>
+            <PlayIcon />
+          </button>
+        )}
       </div>
     </article>
   );

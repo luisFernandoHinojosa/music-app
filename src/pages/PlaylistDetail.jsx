@@ -107,8 +107,9 @@ export const PlaylistDetail = () => {
             </button>
             <Link
             to={`/playlists/public/${playlist?.id}`}
+              target="_blank"
               type="button"
-              className="absolute bottom-4 right-3 border-2 rounded-full p-[3px]"
+              className="absolute bottom-4 right-5 border-2 rounded-full p-[3px]"
             >
               <ShareIcon />
             </Link>
@@ -145,7 +146,7 @@ export const PlaylistDetail = () => {
           {isShowFront ? "Lado B" : "Lado A"} <SpinIcon />
         </button>
       </form>
-      <section>
+      <section className="mt-6">
         {playlist?.tracks.map((track) => (
           <TrackCard key={track.id} track={track} deletebtn={deleteTrack} />
         ))}

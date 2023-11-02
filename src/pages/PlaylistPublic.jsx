@@ -1,13 +1,27 @@
 import { useEffect, useState } from "react"
 import { PublicLayout } from "../components/layaouts/PublicLayout"
-import { AddIcon, SaveIcon, ShareIcon, SpinIcon } from "../icons/Svgs"
+import { AddIcon, ShareIcon, SpinIcon } from "../icons/Svgs"
 import { Link, useParams } from "react-router-dom"
 import { axiosMusic } from "../utils/configAxios"
+import { TrackCard } from "../components/shared/TrackCard"
+import { SpotifySong } from "../components/shared/SpotifySong"
 
 export const PlaylistPublic = () => {
   const [isShowFront, setIsShowFront] = useState(false)
   const [playlist, setPlaylist] = useState(null)
+  const [currentSong, setCurrentSong] = useState(null)
   const { id } = useParams();
+
+  const playTrack = (idTrack) => {
+    setCurrentSong(idTrack);
+  }
+
+  const handleCopyURL = () => {
+    const currentURL = window.location.href
+    navigator.clipboard
+    .writeText(currentURL)
+    .then(() => alert("copiado en el portapapeles"))
+  }
 
   useEffect(() => {
     axiosMusic
@@ -26,9 +40,10 @@ export const PlaylistPublic = () => {
           <div className="front">
             <img src="/images/cassette.png" alt="" />
             <div className="absolute bg-white flex p-1 rounded-md items-center w-[198px] top-[15px] left-[20px]  text-sm">
-              <h3 className="bg-transparent text-black">PlayList Title</h3>
+              <h3 className="bg-transparent text-black">{playlist?.title}</h3>
             </div>
             <button
+              onClick={handleCopyURL}
               type="submit"
               className="absolute bottom-4 right-[50px] border-2  p-[3px]"
             >
@@ -42,27 +57,18 @@ export const PlaylistPublic = () => {
               <ShareIcon />
             </Link>
           </div>
+
           {/* parte trasera */}
           <div className="absolute back top-0">
             <img src="/images/cassette.png" alt="" />
-            <div className="absolute bg-white flex p-1 rounded-md items-center w-[198px] top-[15px] left-[20px]  text-sm">
-              <input
-                name="to"
-                type="text"
-                className="bg-transparent flex-1 outline-none text-black"
-                placeholder="Destinatario"
-                size={10}
-              />
-              <label htmlFor="title">{/* <PencilIcon /> */}</label>
-            </div>
-            <div className="absolute bg-white flex p-1 rounded-md items-center w-[198px] top-[50px] left-[20px]  text-sm">
-              <textarea
-                name="message"
-                rows={4}
-                className="resize-none outline-none text-black"
-                placeholder="Mensaje"
-              />
-            </div>
+            <div className="absolute bg-white flex p-1 rounded-md items-center w-[198px] top-[15px] left-[20px]  text-sm gap-1">
+              <span className="bg-transparent flex-1 outline-none text-black">
+                  {playlist?.to}
+              </span>
+            </div> 
+             <div className="bg-white p-1 rounded-md w-[198px] absolute top-[50px] left-[20px] gap-1 text-sm text-black h-[100px] overflow-y-auto">
+                <p>{playlist?.message}</p>
+            </div> 
           </div>
         </div>
 
@@ -74,6 +80,14 @@ export const PlaylistPublic = () => {
           {isShowFront ? "Lado B" : "Lado A"} <SpinIcon />
         </button>
       </article>
+
+      {currentSong && <SpotifySong idTrack={currentSong} />}
+
+      <section className="mt-6">
+        {playlist?.tracks.map((track) => (
+          <TrackCard key={track.id} track={track} playTrack={playTrack} />
+        ))}
+      </section>
     </PublicLayout>
   )
 }
