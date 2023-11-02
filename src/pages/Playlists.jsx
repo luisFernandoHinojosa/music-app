@@ -5,16 +5,6 @@ import { axiosMusic } from "../utils/configAxios";
 import { PlaylistList } from "../components/playlists/PlaylistList";
 
 export const Playlists = () => {
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData(e.target);
-  //   axiosMusic
-  //     .get(
-  //       `/api/tracks?limit=${formData.get("limit")}&q=${formData.get("query")}`
-  //     )
-  //     .then(({ data }) => setSearchTracks(data.tracks.items))
-  //     .catch((err) => console.log(err));
-  // };
 
   const [playlists, setPlaylists] = useState([])
 

@@ -1,21 +1,48 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ContainerAuth } from "../components/layaouts/ContainerAuth";
 import { axiosMusic } from "../utils/configAxios";
+import { Toaster, toast } from 'react-hot-toast';
 
 export const Register = () => {
+
   const navigate = useNavigate()
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    axiosMusic
+    toast.promise(
+      axiosMusic
       .post("/api/auth/register", data)
       .then(() => {
-        alert("Usuario registrado correctamente"); 
         navigate("/login")
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err)),
+      {
+          loading: (
+              <b className="font-semibold text-[#00072d]">
+                  Registrando datos...
+              </b>
+          ),
+          success: (
+              <b className="font-semibold text-green-600">
+                  Registro con exito!!
+              </b>
+          ),
+          error: (
+              <b className="font-semibold text-red-500">
+                  Hubo un problema al registrar, intentelo de nuevo.
+              </b>
+          ),
+      },
+      {
+          iconTheme: {
+              primary: '#0e6ba8',
+          },
+      }
+  );
   };
+
 
   return (
     <ContainerAuth>
@@ -65,6 +92,7 @@ export const Register = () => {
           O iniciar sesion
         </Link>
       </form>
+      <Toaster/>
     </ContainerAuth>
   );
 };
