@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { axiosMusic } from "../utils/configAxios";
 import { TrackList } from "../components/shared/TrackList";
 import { PrincipalLayaout } from "../components/layaouts/PrincipalLayaout";
@@ -9,6 +9,8 @@ export const Home = () => {
   const [searchTracks, setSearchTracks] = useState([]);
   const [searchNameTrack, setSearchNameTrack] = useState("");
   const [trackSuggestions, setTrackSuggestions] = useState([]);
+  const [suggestionIndex, setSuggestionIndex] = useState(-1);
+  const input = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,24 +44,54 @@ export const Home = () => {
   }, [searchNameTrack]);
 
   const handleSearchInputChange = (e) => {
-    setSearchNameTrack(e.target.value);
+    const inputValue = e.target.value.trim();
+  setSearchNameTrack(inputValue);
+  if (inputValue === "") {
+    setTrackSuggestions([]);
+    setSearchNameTrack("");
+  }
+
+  console.log("input", inputValue)
   };
 
   const handleSuggestionClick = (suggestion) => {
+    setTrackSuggestions([]);
+        setSearchNameTrack("");
     axiosMusic
       .get(`/api/tracks?limit=10&q=${suggestion.name}`)
       .then(({ data }) => {
         setSearchTracks(data.tracks.items);
-        setTrackSuggestions([]);
-        setSearchNameTrack("");
       })
       .catch((err) => console.log(err));
   };
+
+  const handleKeySuggestions = (e) => {
+    if (e.key === "ArrowDown" && suggestionIndex < trackSuggestions.length - 1) {
+      setSuggestionIndex((prevIndex) => prevIndex + 1);
+    } else if (e.key === "ArrowUp" && suggestionIndex > 0) {
+      setSuggestionIndex((prevIndex) => prevIndex - 1);
+    } else if (e.key === "Enter" && suggestionIndex !== -1) {
+      e.preventDefault();
+      //setInputValue(suggestions[suggestionIndex].name);
+      //setPokemonName(suggestions[suggestionIndex]);
+      setTrackSuggestions([]);
+        setSearchNameTrack("");
+      setSuggestionIndex(-1)
+      handleSuggestionClick(trackSuggestions[suggestionIndex])
+    }
+  };
+
+  useEffect(() => {
+    if (input.current) {
+      input.current.focus();
+    }
+  }, [suggestionIndex]);
 
   return (
     <PrincipalLayaout>
       <form
         onSubmit={handleSubmit}
+        onKeyDown={handleKeySuggestions}
         className="bg-white/20 relative p-4 px-4 flex gap-4 rounded-md items-center"
       >
         <button>
@@ -73,6 +105,7 @@ export const Home = () => {
           required
           autoComplete="off"
           onChange={handleSearchInputChange}
+          ref={input}
           size={8}
         />
 
@@ -88,10 +121,10 @@ export const Home = () => {
 
         {trackSuggestions.length > 0 && (
           <ul className="absolute  bg-[#a9a9ad] text-center top-full left-0 right-0 max-h-36 overflow-y-auto scrollbar-thumb-green-800 scrollbar-track-green-400 scrollbar-w-2 scrollbar-thumb-rounded-md text-white z-10">
-            {trackSuggestions.map((trackSuggestion) => (
+            {trackSuggestions.map((trackSuggestion,index) => (
               <li
                 onClick={() => handleSuggestionClick(trackSuggestion)}
-                className="hover:bg-slate-500 cursor-pointer"
+                className={`hover:bg-slate-500 cursor-pointer ${suggestionIndex===index&&("bg-slate-500")}`}
                 key={trackSuggestion.id}
               >
                 {trackSuggestion.name}
