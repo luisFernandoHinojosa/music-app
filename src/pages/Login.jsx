@@ -28,7 +28,7 @@ export const Login = () => {
     <div className="hidden md:block">
         <img className="max-w-[350px]" src="/images/bannerLogin.png" alt="" />
       </div>
-      <form onSubmit={handleSubmit} className="[&>label]:grid grid gap-7 [&>label]:gap-5 w-[min(100%,300px)] mx-auto items-center">
+      <form onSubmit={handleSubmit} className="[&>label]:grid grid gap-7 [&>label]:gap-5 w-[min(100%,300px)] mx-auto items-center ">
         <h1 className="text-2xl uppercase font-semibold">Iniciar sesion</h1>
 
         <label>
@@ -36,6 +36,7 @@ export const Login = () => {
           <input
             className="bg-transparent border-b border-secondry outline-none"
             type="email"
+            required
             name="email"
           />
         </label>
@@ -45,17 +46,18 @@ export const Login = () => {
           <input
             className="bg-transparent border-b border-secondry outline-none"
             type="password"
+            required
             name="password"
           />
         </label>
 
         <button
-          className="bg-primary-light rounded-full py-1 px-4 max-w-max mx-auto uppercase text-sm font-semibold shadow-lg shadow-purple-400/40 hover:tracking-widest transition-all mt-6"
+          className="rounded-full py-1 px-4 max-w-max mx-auto uppercase border-2 border-green-700 text-sm font-semibold shadow-lg shadow-purple-400/40 hover:tracking-widest transition-all mt-6"
           type="submit"
         >
           Entrar
         </button>
-        <Link className="text-center underline" to="/register">
+        <Link className="text-center transition-colors underline hover:text-green-800" to="/register">
           O Crear una cuenta nueva
         </Link>
       </form>

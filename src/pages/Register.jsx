@@ -61,6 +61,8 @@ export const Register = () => {
             className="bg-transparent border-b border-secondry outline-none"
             type="email"
             name="email"
+            required
+            
           />
         </label>
 
@@ -70,6 +72,8 @@ export const Register = () => {
             className="bg-transparent border-b border-secondry outline-none"
             type="text"
             name="name"
+            required
+
           />
         </label>
 
@@ -79,16 +83,17 @@ export const Register = () => {
             className="bg-transparent border-b border-secondry outline-none"
             type="password"
             name="password"
+            required
           />
         </label>
 
         <button
-          className="bg-primary-light rounded-full py-1 px-4 max-w-max mx-auto uppercase text-sm font-semibold shadow-lg shadow-purple-400/40 hover:tracking-widest transition-all mt-6"
+          className="border-2 border-green-800 rounded-full py-1 px-4 max-w-max mx-auto uppercase text-sm font-semibold shadow-lg shadow-purple-400/40 hover:tracking-widest transition-all mt-6"
           type="submit"
         >
           Crear
         </button>
-        <Link className="text-center underline" to="/login">
+        <Link className="text-center underline transition-colors hover:text-green-700" to="/login">
           O iniciar sesion
         </Link>
       </form>

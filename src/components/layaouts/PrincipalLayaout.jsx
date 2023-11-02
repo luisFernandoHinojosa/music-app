@@ -24,22 +24,22 @@ export const PrincipalLayaout = ({ children }) => {
   },[isShowAuth])
 
   return (
-    <section className="bg-dark min-h-screen text-white font-urbanist grid  bg-[url(/images/auth-bg-mobile.png)] bg-no-repeat bg-right-bottom md:bg-[url(/images/auth-bg-destok.png)] transition-all grid-rows-[auto_1fr]">
-      <header className="bg-primary-dark flex justify-between p-4 px-4 uppercase items-center">
+    <section className="bg-[#37211c] min-h-screen text-white font-urbanist grid  bg-[url(/images/auth-bg-mobile.png)] bg-no-repeat bg-right-bottom md:bg-[url(/images/auth-bg-destok.png)] transition-all grid-rows-[auto_1fr]">
+      <header className="bg-orange-900 flex justify-between p-4 px-4 uppercase items-center shadow-md shadow-orange-800">
         <Link to="/" className="font-semibold text-lg">Git Music</Link>
         <div className="flex gap-3">
           <button
             onClick={() => setisShowAuth(!isShowAuth)}
-            className={`uppercase p-2 px-4 border border-secondry rounded-full font-semibold transition-all hover:bg-primary-light text-sm sm:text-base ${
-              isShowAuth && "bg-primary-light"
+            className={`uppercase p-2 px-4 border border-white rounded-full font-semibold transition-all text-sm sm:text-base hover:text-black hover:bg-orange-400 ${
+              isShowAuth && "bg-orange-400"
             }`}
           >
             Mi cuenta
           </button>
           <button
             onClick={() => setIsShowPlaylist(!isShowPlaylist)}
-            className={`uppercase p-2 px-4 border border-secondry rounded-full font-semibold hover:bg-primary-light transition-colors flex items-center gap-2 ${
-              isShowPlaylist && "bg-primary-light"
+            className={`uppercase p-2 px-4 border border-white rounded-full font-semibold hover:bg-orange-400 transition-colors flex items-center gap-2 ${
+              isShowPlaylist && "bg-orange-400"
             }`}
           >
             <PlaylistIcon />
@@ -48,7 +48,7 @@ export const PrincipalLayaout = ({ children }) => {
         </div>
       </header>
       <section className="py-14 px-4 overflow-y-auto">
-        <main className="w-[min(520px,_100%)] mx-auto bg-primary-dark py-8 px-6 sm:px-14 rounded-3xl">
+        <main className="w-[min(520px,_100%)] mx-auto bg-orange-900 py-8 px-6 sm:px-14 rounded-3xl">
           {children}
         </main>
       </section>
