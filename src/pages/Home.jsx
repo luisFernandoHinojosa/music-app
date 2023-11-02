@@ -7,6 +7,8 @@ import { SearchIcon } from "../icons/Svgs";
 export const Home = () => {
   const [tracksRecomendations, setTracksRecomendations] = useState([]);
   const [searchTracks, setSearchTracks] = useState([]);
+  const [searchNameTrack, setSearchNameTrack] = useState("");
+  const [trackSuggestions, setTrackSuggestions] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,11 +30,37 @@ export const Home = () => {
 
   console.log("trackss", tracksRecomendations);
 
+  useEffect(() => {
+    if (searchNameTrack) {
+      axiosMusic
+        .get(`/api/tracks?limit=10&q=${searchNameTrack}`)
+        .then(({ data }) => setTrackSuggestions(data.tracks.items))
+        .catch((err) => console.log(err));
+    } else {
+      setTrackSuggestions([]);
+    }
+  }, [searchNameTrack]);
+
+  const handleSearchInputChange = (e) => {
+    setSearchNameTrack(e.target.value);
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    axiosMusic
+      .get(`/api/tracks?limit=10&q=${suggestion.name}`)
+      .then(({ data }) => {
+        setSearchTracks(data.tracks.items);
+        setTrackSuggestions([]);
+        setSearchNameTrack("");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <PrincipalLayaout>
       <form
         onSubmit={handleSubmit}
-        className="bg-white/20 p-4 px-4 flex gap-4 rounded-md items-center"
+        className="bg-white/20 relative p-4 px-4 flex gap-4 rounded-md items-center"
       >
         <button>
           <SearchIcon />
@@ -44,8 +72,10 @@ export const Home = () => {
           name="query"
           required
           autoComplete="off"
+          onChange={handleSearchInputChange}
           size={8}
         />
+
         <select
           name="limit"
           className="bg-transparent outline-none [&>option]:text-black"
@@ -55,6 +85,20 @@ export const Home = () => {
           <option>10</option>
           <option>12</option>
         </select>
+
+        {trackSuggestions.length > 0 && (
+          <ul className="absolute  bg-[#a9a9ad] text-center top-full left-0 right-0 max-h-36 overflow-y-auto scrollbar-thumb-green-800 scrollbar-track-green-400 scrollbar-w-2 scrollbar-thumb-rounded-md text-white z-10">
+            {trackSuggestions.map((trackSuggestion) => (
+              <li
+                onClick={() => handleSuggestionClick(trackSuggestion)}
+                className="hover:bg-slate-500 cursor-pointer"
+                key={trackSuggestion.id}
+              >
+                {trackSuggestion.name}
+              </li>
+            ))}
+          </ul>
+        )}
       </form>
       <TrackList
         tracks={searchTracks.length > 0 ? searchTracks : tracksRecomendations}
