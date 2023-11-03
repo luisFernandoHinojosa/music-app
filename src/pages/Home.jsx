@@ -92,7 +92,7 @@ export const Home = () => {
       <form
         onSubmit={handleSubmit}
         onKeyDown={handleKeySuggestions}
-        className="bg-white/20 relative p-4 px-4 flex gap-4 rounded-md items-center"
+        className="bg-white/20 relative p-4 px-4 flex gap-4 rounded-t-md items-center"
       >
         <button>
           <SearchIcon />
@@ -120,11 +120,11 @@ export const Home = () => {
         </select>
 
         {trackSuggestions.length > 0 && (
-          <ul className="absolute  bg-[#a9a9ad] text-center top-full left-0 right-0 max-h-36 overflow-y-auto scrollbar-thumb-green-800 scrollbar-track-green-400 scrollbar-w-2 scrollbar-thumb-rounded-md text-white z-10">
+          <ul className="absolute  bg-[#2c2c2d] text-center top-full left-0 right-0 max-h-36 overflow-y-auto scrollbar-thumb-green-800 scrollbar-track-green-400 scrollbar-w-2 scrollbar-thumb-rounded-md rounded-b-md text-white z-10">
             {trackSuggestions.map((trackSuggestion,index) => (
               <li
                 onClick={() => handleSuggestionClick(trackSuggestion)}
-                className={`hover:bg-slate-500 cursor-pointer ${suggestionIndex===index&&("bg-slate-500")}`}
+                className={`hover:bg-black cursor-pointer ${suggestionIndex===index&&("bg-black")}`}
                 key={trackSuggestion.id}
               >
                 {trackSuggestion.name}

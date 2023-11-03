@@ -30,19 +30,19 @@ export const TrackCard = ({
   }
 
   return (
-    <article className="flex gap-4 items-center hover:bg-white/20 transition-colors rounded-md p-1">
-      <div className={`rounded-md overflow-hidden ${imageSizes[imageSize]}`}>
-        <img src={track.album.images[2].url} alt="" />
+    <article className="flex gap-4 items-center bg-[#171717] hover:bg-white/20  rounded-md p-2 transition-transform duration-500 hover:scale-95">
+      <div className={`rounded-md overflow-hidden  ${imageSizes[imageSize]}`}>
+        <img  src={track.album.images[2].url} alt="" />
       </div>
       <div className="flex-1 text-sm grid gap-1">
         <Link
           to={`/tracks/${track.id}`}
-          className="font-semibold line-clamp-1 hover:text-secondry transition-colors"
+          className="font-extrabold text-[1rem] line-clamp-1 hover:text-secondry transition-colors"
         >
           {track.name}
         </Link>
         {/* <h5 className="text-slate-400 line-clamp-1">{track.artists[0].name}</h5> */}
-        <ul className="flex gap-2 line-clamp-1">
+        <ul className="flex gap-2 line-clamp-1 text-slate-300">
           {track.artists.map((artist, index) => (
             <li className="" key={artist.id}>
               <Link

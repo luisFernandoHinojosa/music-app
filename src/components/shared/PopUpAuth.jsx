@@ -12,12 +12,12 @@ const dispatch = useDispatch()
     dispatch(logOut())
   }
   return (
-    <nav className={`fixed top-24 bg-orange-800 uppercase grid p-4 rounded-md justify-start font-semibold border border-orange-400 gap-1 ${isShowAuth?"right-10":"-right-full"} transition-all`}>
-      <Link className="flex gap-2 hover:text-green-600 items-center group transition-colors" to="/playlist">
+    <nav className={`fixed top-24 bg-[#121212] uppercase grid p-4 rounded-md justify-start font-semibold border border-white text-slate-300 gap-1 ${isShowAuth?"right-10":"-right-full"} transition-all`}>
+      <Link className="flex gap-2 hover:text-white items-center group transition-colors" to="/playlist">
        
         <NavPlayIcon /> Mis Grabaciones
       </Link>
-      <button onClick={handleLogOut} className="flex gap-2 uppercase hover:text-green-600 items-center group transition-colors">
+      <button onClick={handleLogOut} className="flex gap-2 uppercase hover:text-white items-center group transition-colors">
         
         <LogOutIcon /> Cerrar sesion
       </button>

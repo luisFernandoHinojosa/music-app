@@ -126,7 +126,7 @@ const NavPlayIcon = () => {
     >
       <path
         d="M4.41603 14.6094C4.21217 14.6091 4.01192 14.5556 3.83498 14.4544C3.43654 14.2286 3.18884 13.7903 3.18884 13.3145V3.68561C3.18884 3.20848 3.43654 2.77152 3.83498 2.54574C4.01613 2.44163 4.22193 2.38809 4.43086 2.39072C4.63978 2.39335 4.84417 2.45205 5.02265 2.56068L13.252 7.4867C13.4236 7.59424 13.5649 7.74358 13.6629 7.92071C13.7609 8.09784 13.8124 8.29696 13.8124 8.49939C13.8124 8.70183 13.7609 8.90095 13.6629 9.07808C13.5649 9.25521 13.4236 9.40455 13.252 9.51209L5.02132 14.4394C4.83867 14.5499 4.62946 14.6086 4.41603 14.6094Z"
-        className="fill-white group-hover:fill-[#3E14B5] transition-colors"
+        className="fill-slate-300 group-hover:fill-[#fff] transition-colors"
       />
     </svg>
   );
@@ -147,7 +147,7 @@ const LogOutIcon = () => {
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="stroke-white group-hover:stroke-[#3E14B5] transition-colors"
+        className="stroke-slate-300 group-hover:stroke-[#fff] transition-colors"
       />
     </svg>
   );

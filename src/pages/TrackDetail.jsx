@@ -19,8 +19,8 @@ export const TrackDetail = () => {
   const lastIndexArtist = track?.artists.length - 1;
   return (
     <PrincipalLayaout>
-      <Link className="text-secondry" to={-1}>Atras</Link>
-      <header className="grid gap-4 mb-4 sm:grid-cols-2 sm:items-center">
+      <Link className="text-secondry  transition-colors hover:text-green-300" to={-1}>Atras</Link>
+      <header className="grid gap-4 mb-4 sm:grid-cols-2 sm:items-center bg-black/80 p-2">
         <div>
           <img
             className="block mx-auto rounded-2xl"
@@ -47,11 +47,11 @@ export const TrackDetail = () => {
             </ul>
           </li>
           <li className="text-slate-400 line-clamp-1">
-            <span className="font-semibold text-white">Album </span>
+            <span className="font-semibold text-white">Album: </span>
             {track?.album.name}
           </li>
           <li  className="text-slate-400">
-            <span className="font-semibold text-white">Año de salida </span>
+            <span className="font-semibold text-white">Año de salida: </span>
             {track?.album.release_date}
           </li>
         </ul>
@@ -59,7 +59,7 @@ export const TrackDetail = () => {
 
       <section>
         <h4 className="text-base font-semibold uppercase mb-8">Recomendaciones</h4>
-        <div>
+        <div className="grid gap-3">
           {track?.relatedSongs.map((releatedTrack) => (
             <TrackCard key={releatedTrack.id} track={releatedTrack} showAddBtn/>
           ))}
